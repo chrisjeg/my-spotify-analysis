@@ -28,7 +28,8 @@ jobs:
       - run: npm run build
       - run:
           command: |
-            # sudo apt update
+            sudo apt-get clean
+            sudo apt-get update
             sudo apt install rsync
             rm -rf src
             rm -rf public

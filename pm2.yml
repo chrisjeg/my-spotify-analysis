@@ -1,0 +1,7 @@
+apps:
+  - script   : server/index.js
+    name: 'My Spotify Analysis'
+    instances: 1
+    watch  : true
+    env    :
+      NODE_ENV: production

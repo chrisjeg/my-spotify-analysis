@@ -1,0 +1,22 @@
+.App {
+  padding: 20px 40px;
+}
+
+.button-card {
+  flex-grow: 1;
+  flex-basis: 1px;
+  margin: 5px 0;
+}
+
+.button-card:not(:last-child):not(:first-child) {
+  margin: 5px;
+}
+
+.flex-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.ag-theme-balham{
+  height: 300px;
+}

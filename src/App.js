@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { H1, H3, Card } from "@blueprintjs/core";
+
 import {
   Radar,
   RadarChart,
@@ -17,47 +18,21 @@ import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
 import { AgGridReact } from "ag-grid-react";
 
-const data = [
-  {
-    feature: "Liveness",
-    value: 0.1915876163873375,
-    max: 1
-  },
-  {
-    feature: "Valence",
-    value: 0.5400935133457481,
-    max: 1
-  },
-  {
-    feature: "Instrumentalness",
-    value: 0.047959706703910504,
-    max: 1
-  },
-  {
-    feature: "danceability",
-    value: 0.5950908752327756,
-    max: 1
-  },
-  {
-    feature: "speechiness",
-    value: 0.07932216014897578,
-    max: 1
-  },
-  {
-    feature: "Acousticness",
-    value: 0.1637370023339542,
-    max: 1
-  },
-  {
-    feature: "Energy",
-    value: 0.7215364618249529,
-    max: 1
-  }
-];
+import trackData from "./data/tracks";
+import graphData from "./data/graph";
 
 export default function App() {
+
+  useEffect(()=>{
+    fetch("/api/profile").then(x => x.json()).then(response => {
+      if(!response.authenticated){
+        window.location.href = "/auth/spotify"
+      }
+    })
+  },{})
+
   const [term, setTerm] = useState("Short Term");
-  const [tracks, setTracks] = useState([]);
+  const [tracks, setTracks] = useState(trackData);
 
   return (
     <div className="App">
@@ -102,7 +77,7 @@ export default function App() {
             outerRadius={150}
             width={500}
             height={500}
-            data={data}
+            data={graphData}
           >
             <PolarGrid />
             <PolarAngleAxis dataKey="feature" />

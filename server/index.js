@@ -10,6 +10,12 @@ const PORT = config.port;
 const app = express();
 middleware.filter(router => router).forEach(router => app.use(router));
 
+app.get("/api/profile", (req, res) =>
+  res.json({
+    authenticated: req.user && req.isAuthenticated()
+  })
+);
+
 app.get(
   "/api/tracks",
   asyncHandler(async (req, res) => {

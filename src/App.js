@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { H1, H3, Card } from "@blueprintjs/core";
 
 import {
@@ -20,16 +20,11 @@ import { AgGridReact } from "ag-grid-react";
 
 import trackData from "./data/tracks";
 import graphData from "./data/graph";
+import useAuthentication from "./hooks/useAuthentication";
 
 export default function App() {
 
-  useEffect(()=>{
-    fetch("/api/profile").then(x => x.json()).then(response => {
-      if(!response.authenticated){
-        window.location.href = "/auth/spotify"
-      }
-    })
-  },{})
+  useAuthentication();
 
   const [term, setTerm] = useState("Short Term");
   const [tracks, setTracks] = useState(trackData);

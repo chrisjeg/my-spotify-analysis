@@ -10,7 +10,6 @@ import {
 } from "recharts";
 import "./App.css";
 
-// import "normalize.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import "ag-grid-community/dist/styles/ag-grid.css";
@@ -25,7 +24,6 @@ import useAuthentication from "./hooks/useAuthentication";
 export default function App() {
 
   useAuthentication();
-
   const [term, setTerm] = useState("Short Term");
   const [tracks, setTracks] = useState(trackData);
 

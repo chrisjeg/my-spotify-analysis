@@ -3,6 +3,7 @@ const middleware = require("./middleware");
 const asyncHandler = require("express-async-handler");
 const getTopTracks = require("./requests/getTopTracks");
 const getAudioFeatures = require("./requests/getAudioFeatures");
+const getMyDetails = require("./requests/getMyDetails");
 
 const config = require("../../../config/spotify-analysis-api.json");
 
@@ -10,11 +11,20 @@ const PORT = config.port;
 const app = express();
 middleware.filter(router => router).forEach(router => app.use(router));
 
-app.get("/api/profile", (req, res) =>
-  res.json({
-    authenticated: req.user && req.isAuthenticated()
-  })
-);
+app.get("/api/profile", (req, res) => {
+  if (req.user && req.isAuthenticated()) {
+    getMyDetails(req.user.token).then(userDetails =>
+      res.json({
+        authenticated: true,
+        ...userDetails
+      })
+    );
+  } else {
+    res.json({
+      authenticated: false
+    });
+  }
+});
 
 app.get(
   "/api/tracks",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { H1, H3, Card } from "@blueprintjs/core";
+import { H1, H3, Card, H2 } from "@blueprintjs/core";
 
 import {
   Radar,
@@ -19,17 +19,21 @@ import { AgGridReact } from "ag-grid-react";
 
 import trackData from "./data/tracks";
 import graphData from "./data/graph";
-import useAuthentication from "./hooks/useAuthentication";
+import useAuthenticatedProfile from "./hooks/useAuthenticatedProfile";
+import useSpotifyDataset from "./hooks/useSpotifyDataset";
+import { Term } from "./api/requestTypes";
 
 export default function App() {
 
-  useAuthentication();
-  const [term, setTerm] = useState("Short Term");
-  const [tracks, setTracks] = useState(trackData);
-
+  const profile = useAuthenticatedProfile();
+  const [dataset, graph, setDataset] = useSpotifyDataset();
   return (
     <div className="App">
-      <H1>Your Spotify Usage : {term}</H1>
+      <H1>Your Spotify Usage : {dataset.term}</H1>
+      <Card>
+        <H2>{profile.username}</H2>
+        <H3>{profile.name}</H3>
+      </Card>
       <Card>
         <H3>How long are we talking about?</H3>
         <div className="flex-group">
@@ -37,8 +41,7 @@ export default function App() {
             interactive
             className="button-card"
             onClick={() => {
-              fetch("/api/tracks").then(x => x.json()).then(x => setTracks(x))
-              setTerm("Short Term")
+              setDataset(Term.Short)
             }}
           >
             Short Term
@@ -46,14 +49,14 @@ export default function App() {
           <Card
             interactive
             className="button-card"
-            onClick={() => setTerm("Medium Term")}
+            onClick={() => setDataset(Term.Medium)}
           >
             Medium Term
           </Card>
           <Card
             interactive
             className="button-card"
-            onClick={() => setTerm("Long Term")}
+            onClick={() => setDataset(Term.Long)}
           >
             Long Term
           </Card>
@@ -62,7 +65,7 @@ export default function App() {
 
       <div className="flex-group" />
       <Card>
-        <H3>Your {term} Feature Radar</H3>
+        <H3>Your {dataset.term} Feature Radar</H3>
         <div className="flex-group">
           <RadarChart
             cx={300}
@@ -70,7 +73,7 @@ export default function App() {
             outerRadius={150}
             width={500}
             height={500}
-            data={graphData}
+            data={graph}
           >
             <PolarGrid />
             <PolarAngleAxis dataKey="feature" />
@@ -103,7 +106,7 @@ export default function App() {
               { field: "popularity" }
             ]}
             enableSorting
-            rowData={tracks}
+            rowData={dataset.dataset}
             // deltaRowDataMode
           />
         </div>

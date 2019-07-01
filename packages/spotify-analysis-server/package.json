@@ -17,8 +17,8 @@
     "session-file-store": "^1.2.0"
   },
   "scripts": {
-    "server": "node server/index.js",
-    "dev": "nodemon server/index.js"
+    "server": "node index.js",
+    "dev": "nodemon index.js"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"

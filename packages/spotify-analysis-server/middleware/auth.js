@@ -4,9 +4,9 @@ const passport = require("passport");
 const { Strategy } = require("passport-spotify");
 const userbase = require("node-persist");
 
-const CONFIG = require("../../../config/spotify-analysis-api");
+const CONFIG = require("../../../../config/spotify-analysis-api");
 
-userbase.init({ dir: "../../persist/spotify-analysis-data" });
+userbase.init({ dir: "../../../../persist/spotify-analysis-data" });
 
 router.use(passport.initialize());
 router.use(passport.session());

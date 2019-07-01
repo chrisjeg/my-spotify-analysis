@@ -1,31 +1,17 @@
 {
-  "name": "my-spotify-analysis",
+  "name": "spotify-analysis-ui",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@types/react": "^16.8.22",
     "ag-grid-community": "^20.1.0",
     "ag-grid-react": "^20.1.1",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "express-async-handler": "^1.1.4",
-    "express-session": "^1.15.6",
-    "helmet": "^3.16.0",
-    "http-proxy-middleware": "^0.19.1",
-    "node-persist": "^3.0.4",
-    "passport": "^0.4.0",
-    "passport-spotify": "^1.0.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "session-file-store": "^1.2.0",
     "typescript": "^3.5.2"
   },
   "scripts": {
-    "server": "node server/index.js",
-    "dev": "nodemon server/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -42,7 +28,6 @@
   ],
   "devDependencies": {
     "@blueprintjs/core": "^3.14.1",
-    "nodemon": "^1.18.10",
     "recharts": "^1.5.0"
   }
 }

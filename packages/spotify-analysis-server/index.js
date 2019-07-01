@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 const getTopTracks = require("./requests/getTopTracks");
 const getAudioFeatures = require("./requests/getAudioFeatures");
 
-const config = require("../../config/spotify-analysis-api.json");
+const config = require("../../../config/spotify-analysis-api.json");
 
 const PORT = config.port;
 const app = express();

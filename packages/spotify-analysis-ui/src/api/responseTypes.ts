@@ -6,7 +6,7 @@ export interface ProfileResponse {
   username?: string;
 }
 
-interface Track {
+export interface Track {
   id: string;
   acousticness: number;
   artists: string[];

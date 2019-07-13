@@ -20,6 +20,7 @@ export interface ApplicationState {
   };
   datasets: {
     loading: LoadingState;
+    selected: 'shortTerm' | 'mediumTerm' | 'longTerm';
     shortTerm: Track[];
     mediumTerm: Track[];
     longTerm: Track[];
@@ -34,6 +35,7 @@ export const INITIAL_STATE: ApplicationState = {
   },
   datasets: {
     loading: LoadingState.NOT_STARTED,
+    selected: "shortTerm",
     shortTerm: [],
     mediumTerm: [],
     longTerm: []

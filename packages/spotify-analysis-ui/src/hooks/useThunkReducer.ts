@@ -6,14 +6,16 @@ import {
   Dispatch
 } from "react";
 
+export type ThunkAction<R extends Reducer<any, any>> =
+  | ReducerAction<R>
+  | ((dispatch: Dispatch<ReducerAction<R>>) => void);
+
 export default function useThunkReducer<R extends Reducer<any, any>>(
   reducer: R,
   initialState: ReducerState<R>
 ) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const thunkDispatch = (
-    action: ReducerAction<R> | ((dispatch: Dispatch<ReducerAction<R>>) => void)
-  ) => {
+  const thunkDispatch = (action: ThunkAction<R>) => {
     if (action instanceof Function) {
       action(dispatch);
     } else {

@@ -2,7 +2,7 @@ export interface ProfileResponse {
   authenticated: boolean;
   image?: string;
   name?: string;
-  spotifyHref?: string;
+  accountUrl?: string;
   username?: string;
 }
 
@@ -26,4 +26,8 @@ export interface Track {
   [key: string]: any;
 }
 
-export type TrackResponse = Array<Track>;
+export type TrackResponse = {
+  shortTerm: Track[];
+  mediumTerm: Track[];
+  longTerm: Track[];
+};

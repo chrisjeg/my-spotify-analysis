@@ -1,5 +1,4 @@
 import { ProfileResponse, TrackResponse } from "./responseTypes";
-import { TrackRequest } from "./requestTypes";
 
 function fetchJson<T>(
   route: string,
@@ -19,7 +18,5 @@ function fetchJson<T>(
 export const getProfile: () => Promise<ProfileResponse> = () =>
   fetchJson("/api/profile");
 
-export const getTracks: (
-  queryParams: TrackRequest
-) => Promise<TrackResponse> = queryParams =>
-  fetchJson("/api/tracks", queryParams);
+export const getMyDatasets: () => Promise<TrackResponse> = () =>
+  fetchJson("/api/myDataset");

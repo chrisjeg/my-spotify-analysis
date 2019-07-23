@@ -1,17 +1,21 @@
 const express = require("express");
 const middleware = require("./middleware");
 const asyncHandler = require("express-async-handler");
-const getTopTracks = require("./requests/getTopTracks");
-const getAudioFeatures = require("./requests/getAudioFeatures");
 const getMyDetails = require("./requests/getMyDetails");
+const getTracksForTerm = require("./requests/getTracksForTerm");
 
-const config = require("../../../config/spotify-analysis-api.json");
+const CONFIG = require("../../../config/spotify-analysis-api.json");
+const PORT = CONFIG.port;
+const TERMS = ["short","medium","long"];
 
-const PORT = config.port;
+const testProfile = require("./test/profile.json");
+const testTracks = require("./test/tracks.json");
+
 const app = express();
 middleware.filter(router => router).forEach(router => app.use(router));
 
 app.get("/api/profile", (req, res) => {
+  return testProfile;
   if (req.user && req.isAuthenticated()) {
     getMyDetails(req.user.token).then(userDetails =>
       res.json({
@@ -29,16 +33,21 @@ app.get("/api/profile", (req, res) => {
 app.get(
   "/api/tracks",
   asyncHandler(async (req, res) => {
-    const { term = "short_term" } = req.query;
+    return testTracks;
     if (!req.user || !req.isAuthenticated()) {
       res.redirect("/auth/spotify");
       return;
     }
-    const tracks = await getTopTracks(req.user.token, term);
-    const ids = tracks.map(t => t.id);
-    const features = await getAudioFeatures(req.user.token, ids);
-    tracks.map((track, i) => Object.assign(track, features[i]));
-    res.json(tracks);
+    const [
+      shortTerm,
+      mediumTerm,
+      longTerm
+    ] = await Promise.all(TERMS.map(term => getTracksForTerm(term,req.user.token)));
+    res.json({
+      shortTerm,
+      mediumTerm,
+      longTerm
+    });
   })
 );
 

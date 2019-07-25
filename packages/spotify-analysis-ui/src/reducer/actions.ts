@@ -1,6 +1,7 @@
 import { ThunkAction } from "../hooks/useThunkReducer";
 import { ApplicationReducer } from "./reducer";
 import { getProfile, getMyDatasets } from "../api/fetchers";
+import { Term } from "../api/responseTypes";
 
 export enum ActionType {
   FETCH_USER_AUTHENTICATION,
@@ -8,13 +9,21 @@ export enum ActionType {
   FETCH_USER_AUTHENTICATION_FAILURE,
   FETCH_USER_DATA,
   FETCH_USER_DATA_SUCCESSFUL,
-  FETCH_USER_DATA_FAILURE
+  FETCH_USER_DATA_FAILURE,
+  SET_SELECTED_TERM
 }
 
 export interface Action {
   type: ActionType;
   payload?: any;
 }
+
+export const setSelectedTerm = (term: Term) : ThunkAction<ApplicationReducer> => ({
+  type: ActionType.SET_SELECTED_TERM,
+  payload:{
+    term
+  }
+});
 
 export const fetchUserAuthentication = (): ThunkAction<
   ApplicationReducer

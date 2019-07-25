@@ -1,6 +1,6 @@
 import { ApplicationState, LoadingState } from "./state";
 import { Action, ActionType } from "./actions";
-import { ProfileResponse, TrackResponse } from "../api/responseTypes";
+import { ProfileResponse, TrackResponse, Term } from "../api/responseTypes";
 
 export type ApplicationReducer = (
   state: ApplicationState,
@@ -17,7 +17,7 @@ const reducer: ApplicationReducer = (state, action) => {
           loading: LoadingState.IN_PROGRESS
         }
       };
-    case ActionType.FETCH_USER_AUTHENTICATION_SUCCESSFUL:{
+    case ActionType.FETCH_USER_AUTHENTICATION_SUCCESSFUL: {
       const payload: ProfileResponse = action.payload.profile;
       return {
         ...state,
@@ -43,32 +43,41 @@ const reducer: ApplicationReducer = (state, action) => {
         }
       };
     case ActionType.FETCH_USER_DATA:
-        return {
-            ...state,
-            datasets:{
-                ...state.datasets,
-                loading:LoadingState.IN_PROGRESS
-            }
-        };
-    case ActionType.FETCH_USER_DATA_SUCCESSFUL:{
-        const payload : TrackResponse = action.payload.datasets;
-        return {
-            ...state,
-            datasets:{
-                ...state.datasets,
-                loading: LoadingState.SUCCESS,
-                ...payload
-            }
+      return {
+        ...state,
+        datasets: {
+          ...state.datasets,
+          loading: LoadingState.IN_PROGRESS
         }
+      };
+    case ActionType.FETCH_USER_DATA_SUCCESSFUL: {
+      const payload: TrackResponse = action.payload.datasets;
+      return {
+        ...state,
+        datasets: {
+          ...state.datasets,
+          loading: LoadingState.SUCCESS,
+          ...payload
+        }
+      };
     }
     case ActionType.FETCH_USER_DATA_FAILURE:
-        return {
-            ...state,
-            datasets:{
-                ...state.datasets,
-                loading: LoadingState.FAILED
-            }
+      return {
+        ...state,
+        datasets: {
+          ...state.datasets,
+          loading: LoadingState.FAILED
         }
+      };
+    case ActionType.SET_SELECTED_TERM:
+      const selected: Term = action.payload.term;
+      return {
+        ...state,
+        datasets:{
+          ...state.datasets,
+          selected
+        }
+      }
     default:
       return state;
   }

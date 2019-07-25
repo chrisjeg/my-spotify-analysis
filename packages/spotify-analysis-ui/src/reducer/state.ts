@@ -1,4 +1,4 @@
-import { Track } from "../api/responseTypes";
+import { Track, Term } from "../api/responseTypes";
 
 export enum LoadingState {
   NOT_STARTED,
@@ -7,20 +7,22 @@ export enum LoadingState {
   FAILED
 }
 
+export type UserProfileDetails = {
+  image: string;
+  accountUrl: string;
+  displayName: string;
+  username: string;
+} | null;
+
 export interface ApplicationState {
   isLoggedIn: boolean;
   userProfile: {
     loading: LoadingState;
-    details: {
-      image: string;
-      accountUrl: string;
-      displayName: string;
-      username: string;
-    } | null;
+    details: UserProfileDetails;
   };
   datasets: {
     loading: LoadingState;
-    selected: 'shortTerm' | 'mediumTerm' | 'longTerm';
+    selected: Term;
     shortTerm: Track[];
     mediumTerm: Track[];
     longTerm: Track[];
@@ -30,8 +32,8 @@ export interface ApplicationState {
 export const INITIAL_STATE: ApplicationState = {
   isLoggedIn: false,
   userProfile: {
-      loading: LoadingState.NOT_STARTED,
-      details: null
+    loading: LoadingState.NOT_STARTED,
+    details: null
   },
   datasets: {
     loading: LoadingState.NOT_STARTED,

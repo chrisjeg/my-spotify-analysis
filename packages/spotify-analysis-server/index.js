@@ -15,6 +15,7 @@ const app = express();
 middleware.filter(router => router).forEach(router => app.use(router));
 
 app.get("/api/profile", (req, res) => {
+  res.json(testProfile);
   return testProfile;
   if (req.user && req.isAuthenticated()) {
     getMyDetails(req.user.token).then(userDetails =>
@@ -31,9 +32,10 @@ app.get("/api/profile", (req, res) => {
 });
 
 app.get(
-  "/api/tracks",
+  "/api/myDataset",
   asyncHandler(async (req, res) => {
-    return testTracks;
+    res.json(testTracks);
+    return;
     if (!req.user || !req.isAuthenticated()) {
       res.redirect("/auth/spotify");
       return;

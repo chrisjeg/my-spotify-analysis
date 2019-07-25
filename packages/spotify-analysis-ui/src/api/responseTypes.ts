@@ -1,3 +1,6 @@
+export type Term = "shortTerm" | "mediumTerm" | "longTerm";
+export const TERMS: Term[] = ["shortTerm", "mediumTerm", "longTerm"];
+
 export interface ProfileResponse {
   authenticated: boolean;
   image?: string;

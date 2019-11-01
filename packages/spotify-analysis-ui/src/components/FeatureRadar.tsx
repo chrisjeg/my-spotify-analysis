@@ -1,6 +1,6 @@
 import React from "react";
 import { Term } from "../api/responseTypes";
-import { Card, H3 } from "@blueprintjs/core";
+import _ from "lodash";
 import {
   Radar,
   RadarChart,
@@ -9,6 +9,7 @@ import {
   PolarRadiusAxis
 } from "recharts";
 import { FeatureGraph } from "../data/dataAggregators";
+import DataCard from "./DataCard";
 
 interface FeatureRadarProps {
   selected: Term;
@@ -16,9 +17,7 @@ interface FeatureRadarProps {
 }
 
 export default ({ selected, featureGraph }: FeatureRadarProps) => (
-  <Card>
-    <H3>Your {selected} Feature Radar</H3>
-    <div className="flex-group">
+  <DataCard header={`Your ${selected} Feature Radar`}>
       <RadarChart
         cx={300}
         cy={250}
@@ -37,6 +36,5 @@ export default ({ selected, featureGraph }: FeatureRadarProps) => (
           fillOpacity={0.6}
         />
       </RadarChart>
-    </div>
-  </Card>
+  </DataCard>
 );

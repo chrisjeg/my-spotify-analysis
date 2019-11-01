@@ -22,5 +22,5 @@ export default function useThunkReducer<R extends Reducer<any, any>>(
       dispatch(action);
     }
   };
-  return {state, dispatch: thunkDispatch};
+  return { state, dispatch: thunkDispatch };
 }

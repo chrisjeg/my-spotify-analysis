@@ -16,7 +16,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
-    "three": "^0.107.0",
+    "three": "^0.125.0",
     "typescript": "^3.5.2"
   },
   "scripts": {

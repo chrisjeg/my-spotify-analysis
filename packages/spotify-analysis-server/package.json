@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-async-handler": "^1.1.4",
     "express-session": "^1.15.6",
     "helmet": "^3.16.0",
